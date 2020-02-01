@@ -1,68 +1,96 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+- Download, make sure you're in the same folder as `package.json` in terminal
+- run `npm i`
+- run `npm start`
 
-In the project directory, you can run:
+## React Router
 
-### `npm start`
+When we create a single page application, our route never changes. So if we want to send someone a link to the contact page of our site, we can't. It will always default to the primary view.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Additionally, managing different views using ternary operators can get really complex very quickly.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Luckily for us, we have React Router to help us out
 
-### `npm test`
+[React Router Docs](https://reacttraining.com/react-router/web/guides/quick-start)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+We'll just go over making a few different views. But you can use router for redirects, auth, custom links, 404s, and more.
 
-### `npm run build`
+- `install react-router-dom`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**App.js**
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```js
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Wrap code in `<Router>`
 
-### `npm run eject`
+```js
+return (
+  <Router>
+    <div className="container">
+      <About />
+      <Contact />
+      <Location />
+      <Menu />
+    </div>
+  </Router>
+);
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Add Router Links:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```js
+<div className="container">
+  <nav>
+    <Link to="/">Home</Link>
+    <Link to="/about">About</Link>
+    <Link to="/contact">Contact</Link>
+    <Link to="/locations">Locations</Link>
+  </nav>
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Add Route components
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```js
+<Route path="/" exact component={Menu} />
+<Route path="/about" component={About} />
+<Route path="/contact" component={Contact} />
+<Route path="/locations" component={Location} />
+```
 
-## Learn More
+Entire Code:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```js
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import "./App.css";
+import About from "./components/About.js";
+import Contact from "./components/Contact.js";
+import Location from "./components/Location";
+import Menu from "./components/Menu.js";
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div className="container">
+          <nav>
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/locations">Locations</Link>
+          </nav>
+          <Route path="/" exact component={Menu} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/locations" component={Location} />
+        </div>
+      </Router>
+    );
+  }
+}
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+export default App;
+```
