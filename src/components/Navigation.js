@@ -1,16 +1,10 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 class Navigataion extends React.Component {
-  render () {
-    return (
-      <nav>
-        <h5>Home</h5>
-        <h5>About</h5>
-        <h5>Contact</h5>
-        <h5>Locations</h5>
-      </nav>
-    )
+  render() {
+    return <></>;
   }
 }
 
-export default Navigataion
+export default Navigataion;
